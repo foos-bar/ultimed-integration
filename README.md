@@ -8,7 +8,7 @@ composer require ultimed/integration
 
 ## Examples
 
- - Authentication
+ - [Authentication](examples/authenticate.php)
  - Patients
     - Show details of one patient
  - Files

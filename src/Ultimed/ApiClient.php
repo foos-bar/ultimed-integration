@@ -5,12 +5,17 @@ use GuzzleHttp\Client;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Ultimed\OAuth\ClientCredentials;
+use Ultimed\OAuth\AccessToken;
 use Ultimed\Requests\ApiRequest;
 use Ultimed\Requests\IncludesOAuthClientCredentials;
+use Ultimed\Requests\IncludesOAuthAccessToken;
+use Ultimed\Requests\Authentication as AuthenticationRequest;
+use Ultimed\Responses\Authentication as AuthenticationResponse;
 
 class ApiClient extends Client
 {
     protected $credentials;
+    protected $accessToken;
 
     public function __construct(array $config = [])
     {
@@ -26,6 +31,11 @@ class ApiClient extends Client
         }
 
         parent::__construct($config);
+    }
+
+    public function setAccessToken(AccessToken $accessToken)
+    {
+        $this->accessToken = $accessToken;
     }
 
     public function send(RequestInterface $request, array $options = [])
@@ -46,10 +56,27 @@ class ApiClient extends Client
             $request->setCredentials($this->credentials);
         }
 
+        if (in_array(IncludesOAuthAccessToken::class, $traits)) {
+            $request->setAccessToken($this->accessToken);
+        }
+
         return $request;
     }
 
     private function convertResponse(
+        RequestInterface $request,
+        ResponseInterface $response)
+    {
+        $response = $this->wrapResponseInCustomClass($request, $response);
+
+        if ($request instanceof AuthenticationRequest) {
+            $this->accessToken = $response->getAccessToken();
+        }
+
+        return $response;
+    }
+
+    private function wrapResponseInCustomClass(
         RequestInterface $request,
         ResponseInterface $response)
     {

@@ -3,7 +3,8 @@
     "description": "Integration Kit for Ultimed",
     "require": {
         "guzzlehttp/psr7": "^1.2",
-        "guzzlehttp/guzzle": "^6.1"
+        "guzzlehttp/guzzle": "^6.1",
+        "nesbot/carbon": "^1.21"
     },
     "autoload": {
         "psr-4": {
