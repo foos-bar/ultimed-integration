@@ -1,0 +1,13 @@
+{
+    "name": "ultimed/integration",
+    "description": "Integration Kit for Ultimed",
+    "require": {
+        "guzzlehttp/psr7": "^1.2",
+        "guzzlehttp/guzzle": "^6.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    }
+}
