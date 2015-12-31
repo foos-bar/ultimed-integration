@@ -10,7 +10,7 @@ composer require ultimed/integration
 
  - [Authentication](examples/authenticate.php)
  - Patients
-    - Show details of one patient
+    - [Show details of one patient](examples/authentication.php)
  - Files
     - Upload a new file
  - History items
