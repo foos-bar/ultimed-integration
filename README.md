@@ -2,6 +2,21 @@
 
 ## Installation
 
+Create a `composer.json` file in the root directory:
+
+```
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/lan0/ultimed-integration"
+        }
+    ]
+}
+```
+
+Run the following command:
+
 ```
 composer require ultimed/integration
 ```
