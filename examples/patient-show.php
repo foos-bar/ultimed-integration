@@ -4,10 +4,6 @@ $client = require __DIR__ . '/setup-client.php';
 
 use Ultimed\Requests;
 
-// Login
-$accessToken = require __DIR__ . '/authenticate.php';
-$client->setAccessToken($accessToken);
-
 try {
     echo "\n\n\n\nQuery for patient details ...\n";
     $patientRequest = new Requests\PatientShow(1);

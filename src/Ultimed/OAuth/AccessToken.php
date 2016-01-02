@@ -13,7 +13,14 @@ class AccessToken
     {
         $this->accessToken = $data['access_token'];
         $this->tokenType = $data['token_type'];
-        $this->expiresAt = Carbon::now()->addSeconds($data['expires_in']);
+
+        if (array_key_exists('expires_at', $data)) {
+            $this->expiresAt = Carbon::createFromFormat('Y-m-d H:i:s', $data['expires_at']);
+        }
+        else if (array_key_exists('expires_in', $data)) {
+            $this->expiresAt = Carbon::now()->addSeconds($data['expires_in']);
+        }
+
         $this->userId = $data['user_id'];
     }
 

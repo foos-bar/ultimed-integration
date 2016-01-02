@@ -1,5 +1,6 @@
 <?php
 
+$shouldNotAuthenticate = true; // Turn off auto login
 $client = require __DIR__ . '/setup-client.php';
 
 use Ultimed\Requests;

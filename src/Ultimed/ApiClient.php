@@ -48,6 +48,11 @@ class ApiClient extends Client
         return $response;
     }
 
+    public function isAuthenticated()
+    {
+        return $this->accessToken && $this->accessToken->isValid();
+    }
+
     private function prepareRequest(RequestInterface $request)
     {
         $traits = class_uses($request);
