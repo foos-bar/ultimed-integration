@@ -24,6 +24,8 @@ try {
         var_dump($picture['date']); // Date
         var_dump($picture['file']); // File
         var_dump(array_keys($picture['file'])); // array with all available properties
+
+        return $picture;
     }
 }
 catch(\GuzzleHttp\Exception\ClientException $exception) {

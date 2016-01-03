@@ -21,6 +21,8 @@ try {
         var_dump($attachment['patient']); // Patient id
         var_dump($attachment['file']); // File
         var_dump(array_keys($attachment['file'])); // array with all available properties
+
+        return $attachment;
     }
 }
 catch(\GuzzleHttp\Exception\ClientException $exception) {
