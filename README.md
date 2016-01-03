@@ -25,7 +25,8 @@ composer require ultimed/integration
 
  - [Authentication](examples/authenticate.php)
  - Patients
-    - [Show details of one patient](examples/authentication.php)
+    - [Show details of one patient](examples/patient-show.php)
+    - [Search patients by custom field](examples/patient-by-custom-field.php)
  - Files
     - [Upload a new file](examples/upload-file.php)
  - History items
