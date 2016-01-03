@@ -32,3 +32,5 @@ composer require ultimed/integration
     - Create new history item
  - Attachments
     - [Create attachment](examples/create-attachment.php)
+ - Pictures
+    - [Create picture](examples/create-picture.php)
