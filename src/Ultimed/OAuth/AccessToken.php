@@ -58,4 +58,14 @@ class AccessToken
     {
         return $this->userId;
     }
+
+    public function toArray()
+    {
+        return [
+            'access_token' => $this->getAccessToken(),
+            'token_type' => $this->getTokenType(),
+            'expires_at' => $this->getExpiresAt(),
+            'user_id' => $this->getUserId(),
+        ];
+    }
 }
