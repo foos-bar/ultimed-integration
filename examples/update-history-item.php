@@ -5,21 +5,12 @@ $client = require_once __DIR__ . '/setup-client.php';
 use Carbon\Carbon;
 use Ultimed\Requests;
 
-$picture = require __DIR__ . '/create-picture.php';
-$attachment = require __DIR__ . '/create-attachment.php';
+$historyItem = require __DIR__ . '/create-history-item.php';
 
 try {
-    echo "\n\n\n\nCreate history item ...\n";
-    $historyItemRequest = new Requests\HistoryItemCreate([
-        'patient' => 1,
-        'date' => Carbon::now(),
-        'text' => 'Dekurs für Hans Wurst',
-        'duration' => 30, // In Minutes
-        'type' => 'dekurs',
-        'services' => [1, 2],
-        'people' => [1, 2],
-        'pictures' => [$picture['id']],
-        'attachments' => [$attachment['id']],
+    echo "\n\n\n\nUpdate history item ...\n";
+    $historyItemRequest = new Requests\HistoryItemUpdate($historyItem['id'], [
+        'text' => 'Change the text',
     ]);
     $historyItemResponse = $client->send($historyItemRequest);
 
