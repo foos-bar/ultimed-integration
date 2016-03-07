@@ -31,6 +31,7 @@ composer require ultimed/integration
     - [Upload a new file](examples/upload-file.php)
  - History items
     - [Create new history item](examples/create-history-item.php)
+    - [Update existing history item](examples/update-history-item.php)
  - Attachments
     - [Create attachment](examples/create-attachment.php)
  - Pictures
