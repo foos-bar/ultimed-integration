@@ -8,7 +8,7 @@ class AttachmentCreate extends ApiRequest
     {
         $body = json_encode([
             'attachment' => [
-                'file' => ['id' => $fileId],
+                'file' => $fileId,
                 'patient' => $patientId,
             ],
         ]);

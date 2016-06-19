@@ -11,7 +11,7 @@ class PictureCreate extends ApiRequest
     {
         $body = json_encode([
             'picture' => [
-                'file' => ['id' => $fileId],
+                'file' => $fileId,
                 'patient' => $patientId,
                 'date' => (new EmberDate($date))->format(),
             ],
