@@ -6,18 +6,18 @@ class FileUpload extends ApiRequest
 {
     use IncludesOAuthAccessToken;
 
-    public function __construct($path, $originalFilename = null)
+    public function __construct($pathOrContents, $originalFilename = null)
     {
-        if (!file_exists($path)) {
-            throw new InvalidArgumentException("File $path does not exist.");
+        if (strpos($pathOrContents, "\0") === false && file_exists($pathOrContents) && is_file($pathOrContents)) {
+            $contents = fopen($pathOrContents, 'r');
         }
-        else if (!is_file($path)) {
-            throw new InvalidArgumentException("$path is not a file.");
+        else {
+            $contents = $pathOrContents;
         }
 
         $file = [
             'name'     => 'file',
-            'contents' => fopen($path, 'r'),
+            'contents' => $contents,
         ];
 
         if ($originalFilename) {
