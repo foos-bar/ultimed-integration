@@ -6,21 +6,25 @@ class FileUpload extends ApiRequest
 {
     use IncludesOAuthAccessToken;
 
-    public function __construct($path)
+    public function __construct($pathOrContents, $originalFilename = null)
     {
-        if (!file_exists($path)) {
-            throw new InvalidArgumentException("File $path does not exist.");
+        if (strpos($pathOrContents, "\0") === false && file_exists($pathOrContents) && is_file($pathOrContents)) {
+            $contents = fopen($pathOrContents, 'r');
         }
-        else if (!is_file($path)) {
-            throw new InvalidArgumentException("$path is not a file.");
+        else {
+            $contents = $pathOrContents;
         }
 
-        $body = new MultipartStream([
-            [
-                'name'     => 'file',
-                'contents' => fopen($path, 'r'),
-            ],
-        ]);
+        $file = [
+            'name'     => 'file',
+            'contents' => $contents,
+        ];
+
+        if ($originalFilename) {
+            $file['filename'] = $originalFilename;
+        }
+
+        $body = new MultipartStream([$file]);
         parent::__construct('POST', '/v1/files', [], $body);
     }
 }
