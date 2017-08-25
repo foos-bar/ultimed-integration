@@ -6,6 +6,6 @@ class Me extends ApiRequest
 
     public function __construct()
     {
-        parent::__construct('GET', "/v1/me");
+        parent::__construct('GET', '/v1/me');
     }
 }
