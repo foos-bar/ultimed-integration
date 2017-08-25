@@ -25,7 +25,6 @@ $tokenData = $accessToken->toArray();
 //     'access_token' => 'abc-123-foo',
 //     'token_type' => 'Bearer',
 //     'expires_at' => 2015-05-05 00:00:00,
-//     'user_id' => 1,
 // ]
 
 // REPLACE: Persist tokenData to database

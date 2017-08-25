@@ -7,7 +7,6 @@ class AccessToken
     private $accessToken;
     private $tokenType;
     private $expiresAt;
-    private $userId;
 
     public function __construct(array $data = [])
     {
@@ -20,8 +19,6 @@ class AccessToken
         else if (array_key_exists('expires_in', $data)) {
             $this->expiresAt = Carbon::now()->addSeconds($data['expires_in']);
         }
-
-        $this->userId = $data['user_id'];
     }
 
     public function __toString()
@@ -54,18 +51,12 @@ class AccessToken
         return Carbon::now()->lte($this->getExpiresAt());
     }
 
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
     public function toArray()
     {
         return [
             'access_token' => $this->getAccessToken(),
             'token_type' => $this->getTokenType(),
             'expires_at' => $this->getExpiresAt(),
-            'user_id' => $this->getUserId(),
         ];
     }
 }
