@@ -19,7 +19,6 @@ try {
         var_dump($accessToken->getExpiresIn()); // Seconds until it expires
         var_dump($accessToken->getExpiresAt()); // Date when it expires
         var_dump($accessToken->isValid()); // Access token still valid?
-        var_dump($accessToken->getUserId()); // User associated with token
 
         return $accessToken;
     }
