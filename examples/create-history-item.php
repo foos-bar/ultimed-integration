@@ -5,8 +5,7 @@ $client = require_once __DIR__ . '/setup-client.php';
 use Carbon\Carbon;
 use Ultimed\Requests;
 
-$picture = require __DIR__ . '/create-picture.php';
-$attachment = require __DIR__ . '/create-attachment.php';
+$file = require __DIR__ . '/upload-file.php';
 
 try {
     echo "\n\n\n\nCreate history item ...\n";
@@ -18,8 +17,7 @@ try {
         'type' => 'dekurs',
         'services' => [1, 2],
         'people' => [1, 2],
-        'pictures' => [$picture['id']],
-        'attachments' => [$attachment['id']],
+        'files' => [$file['id']],
     ]);
     $historyItemResponse = $client->send($historyItemRequest);
 
@@ -35,8 +33,7 @@ try {
         var_dump($historyItem['type']); // Type
         var_dump($historyItem['services']); // Services
         var_dump($historyItem['people']); // User
-        var_dump($historyItem['pictures']); // Pictures
-        var_dump($historyItem['attachments']); // Attachments
+        var_dump($historyItem['files']); // Files
 
         return $historyItem;
     }
