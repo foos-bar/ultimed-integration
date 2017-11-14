@@ -26,8 +26,7 @@ try {
         var_dump($historyItem['type']); // Type
         var_dump($historyItem['services']); // Services
         var_dump($historyItem['people']); // User
-        var_dump($historyItem['pictures']); // Pictures
-        var_dump($historyItem['attachments']); // Attachments
+        var_dump($historyItem['files']); // Files
 
         return $historyItem;
     }

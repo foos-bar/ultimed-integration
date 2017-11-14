@@ -52,9 +52,8 @@ $fileRequest = new Ultimed\Requests\FileUpload($path);
 $fileResponse = $client->send($fileRequest);
 $file = $fileResponse->getFile();
 
-// Create picture
+// Create connection to patient
 $patientId = 1; // REPLACE: The patient the picture gets associated with
-$date = DateTime::createFromFormat('Y-m-d H:i:s', '2015-01-01 12:34:56'); // REPLACE: The date of the picture
-$pictureRequest = new Requests\PictureCreate($patientId, $file['id'], $date);
-$pictureResponse = $client->send($pictureRequest);
-$picture = $pictureResponse->getPicture();
+$fileUpdateRequest = new Requests\FileUpdate($file['id'], ['patient' => $patientId]);
+$fileUpdateResponse = $client->send($fileUpdateRequest);
+$file = $fileUpdateResponse->getFile();

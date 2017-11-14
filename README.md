@@ -29,10 +29,7 @@ composer require ultimed/integration
     - [Search patients by custom field](examples/patient-by-custom-field.php)
  - Files
     - [Upload a new file](examples/upload-file.php)
+    - [Update an existing file](examples/update-file.php)
  - History items
     - [Create new history item](examples/create-history-item.php)
     - [Update existing history item](examples/update-history-item.php)
- - Attachments
-    - [Create attachment](examples/create-attachment.php)
- - Pictures
-    - [Create picture](examples/create-picture.php)
