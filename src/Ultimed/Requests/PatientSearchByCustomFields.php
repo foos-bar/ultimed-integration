@@ -8,10 +8,11 @@ class PatientSearchByCustomFields extends ApiRequest
 
     public function __construct($customFields)
     {
-        $uri = new Uri('/v1/patients');
-        foreach ($customFields as $fieldName => $value) {
-          $uri = $uri->withQuery("filter[$fieldName]=$value");
-        }
+        $query = implode('&', array_map(function($fieldName, $value) {
+            return "filter[$fieldName]=$value";
+        }, array_keys($customFields), $customFields));
+
+        $uri = (new Uri('/v1/patients'))->withQuery($query);
 
         parent::__construct('GET', $uri);
     }
