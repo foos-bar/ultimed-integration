@@ -9,7 +9,8 @@ Create a `composer.json` file in the root directory:
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/lan0/ultimed-integration"
+            "url": "https://github.com/lan0/ultimed-integration",
+            "no-api": true
         }
     ]
 }
