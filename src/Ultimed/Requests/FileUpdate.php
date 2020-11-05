@@ -8,9 +8,14 @@ class FileUpdate extends ApiRequest
 
     public function __construct($id, array $data = [])
     {
-        if (array_key_exists('date', $data)) {
-            $data['date'] = (new EmberDate($data['date']))->format();
+        $dates = ['date', 'patientViewedAt', 'patientSubmittedAt'];
+
+        foreach ($dates as $date) {
+            if (array_key_exists($date, $data)) {
+                $data[$date] = (new EmberDate($data[$date]))->format();
+            }
         }
+
         $body = json_encode(['file' => $data]);
         parent::__construct('PUT', "v1/files/$id", [], $body);
     }
