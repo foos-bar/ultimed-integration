@@ -2,7 +2,7 @@
 
 class FileUpdate extends ApiResponse
 {
-    private $file;
+    protected $file;
 
     protected function init()
     {
