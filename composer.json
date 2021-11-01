@@ -2,7 +2,7 @@
     "name": "ultimed/integration",
     "description": "Integration Kit for Ultimed",
     "require": {
-        "guzzlehttp/psr7": "^1.2",
+        "guzzlehttp/psr7": "^1.2|^2.0",
         "guzzlehttp/guzzle": "^6.1",
         "nesbot/carbon": "^2.17"
     },
