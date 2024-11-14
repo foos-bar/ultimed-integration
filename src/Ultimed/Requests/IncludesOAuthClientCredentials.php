@@ -35,6 +35,6 @@ trait IncludesOAuthClientCredentials
         $data = json_decode($stream->getContents(), true);
         $data = array_merge($this->credentials->toArray(), $data);
         $json = json_encode($data);
-        return $this->bodyStream = Psr7\stream_for($json);
+        return $this->bodyStream = Psr7\Utils::streamFor($json);
     }
 }
