@@ -1,6 +1,7 @@
 <?php namespace Ultimed\Requests;
 
 use GuzzleHttp\Psr7;
+use Psr\Http\Message\StreamInterface;
 use Ultimed\OAuth\ClientCredentials;
 
 trait IncludesOAuthClientCredentials
@@ -13,7 +14,13 @@ trait IncludesOAuthClientCredentials
         $this->credentials = $credentials;
     }
 
-    public function getBody()
+    /**
+     * override for classes that implement Psr\Http\Message\ResponseInterface
+     *
+     * @see Psr\Http\Message\ResponseInterface
+     * @see GuzzleHttp\Psr7\MessageTrait::getBody()
+     */
+    public function getBody(): StreamInterface
     {
         if ($this->bodyStream !== null) {
             return $this->bodyStream;
