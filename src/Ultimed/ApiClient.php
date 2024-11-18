@@ -38,7 +38,7 @@ class ApiClient extends Client
         $this->accessToken = $accessToken;
     }
 
-    public function send(RequestInterface $request, array $options = [])
+    public function send(RequestInterface $request, array $options = []): ResponseInterface
     {
         $request = $this->prepareRequest($request);
 

@@ -12,7 +12,7 @@ trait IncludesOAuthAccessToken
         $this->accessToken = $accessToken;
     }
 
-    public function getHeaders()
+    public function getHeaders(): array
     {
         $headers = parent::getHeaders();
         if ($this->hasValidAccessToken()) {
@@ -22,7 +22,7 @@ trait IncludesOAuthAccessToken
         return $headers;
     }
 
-    public function hasHeader($name)
+    public function hasHeader($name): bool
     {
         if (strtolower($name) === 'authorization') {
             return $this->hasValidAccessToken();
@@ -31,7 +31,7 @@ trait IncludesOAuthAccessToken
         return parent::hasHeader($name);
     }
 
-    public function getHeader($name)
+    public function getHeader($name): array
     {
         $headers = parent::getHeader($name);
 
