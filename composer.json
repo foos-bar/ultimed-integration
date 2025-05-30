@@ -4,7 +4,7 @@
     "require": {
         "guzzlehttp/psr7": "^1.2|^2.0",
         "guzzlehttp/guzzle": "^6.1|^7.0",
-        "nesbot/carbon": "^2.17"
+        "nesbot/carbon": "^2.17|^3.0"
     },
     "autoload": {
         "psr-4": {
