@@ -25,7 +25,7 @@ class ApiResponse implements ResponseInterface
 
     public function parseJson()
     {
-        $json = $this->response->getBody()->getContents();
+        $json = (string) $this->response->getBody();
         return json_decode($json, true);
     }
 
