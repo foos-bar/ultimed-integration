@@ -4,13 +4,13 @@ use Exception;
 use GuzzleHttp\Client;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Ultimed\OAuth\ClientCredentials;
 use Ultimed\OAuth\AccessToken;
+use Ultimed\OAuth\ClientCredentials;
 use Ultimed\Requests\ApiRequest;
-use Ultimed\Requests\IncludesOAuthClientCredentials;
-use Ultimed\Requests\IncludesOAuthAccessToken;
 use Ultimed\Requests\Authentication as AuthenticationRequest;
-use Ultimed\Responses\Authentication as AuthenticationResponse;
+use Ultimed\Requests\IncludesOAuthAccessToken;
+use Ultimed\Requests\IncludesOAuthClientCredentials;
+use Ultimed\Responses\ApiResponse;
 
 class ApiClient extends Client
 {
@@ -38,7 +38,7 @@ class ApiClient extends Client
         $this->accessToken = $accessToken;
     }
 
-    public function send(RequestInterface $request, array $options = []): ResponseInterface
+    public function send(RequestInterface $request, array $options = []): ResponseInterface | ApiResponse
     {
         $request = $this->prepareRequest($request);
 
@@ -70,7 +70,7 @@ class ApiClient extends Client
 
     private function convertResponse(
         RequestInterface $request,
-        ResponseInterface $response)
+        ResponseInterface $response): ResponseInterface | ApiResponse
     {
         $response = $this->wrapResponseInCustomClass($request, $response);
 
@@ -83,7 +83,7 @@ class ApiClient extends Client
 
     private function wrapResponseInCustomClass(
         RequestInterface $request,
-        ResponseInterface $response)
+        ResponseInterface $response): ResponseInterface | ApiResponse
     {
         if ($request instanceof ApiRequest) {
             $responseClass = str_replace('Request', 'Response', get_class($request));
