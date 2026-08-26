@@ -1,6 +1,6 @@
 <?php namespace Ultimed\Responses;
 
-class PatientSearchbyCustomFields extends ApiResponse
+class PatientSearchByCustomFields extends ApiResponse
 {
     private $patients;
 
