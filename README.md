@@ -21,6 +21,19 @@ Run the following command:
 composer require ultimed/integration
 ```
 
+## Tests
+
+Install development dependencies and run the regression suite:
+
+```sh
+composer install
+composer test
+```
+
+The suite covers OAuth header formatting, request and response handling, and
+real HTTP transport. The transport tests require the cURL extension, local
+TCP sockets, and `proc_open`.
+
 ## Examples
 
  - [Authentication](examples/authenticate.php)

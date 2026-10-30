@@ -7,9 +7,15 @@
         "guzzlehttp/guzzle": "^6.1|^7.0",
         "nesbot/carbon": "^2.17|^3.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5|^12.5"
+    },
     "autoload": {
         "psr-4": {
             "": "src/"
         }
+    },
+    "scripts": {
+        "test": "phpunit --do-not-cache-result tests"
     }
 }

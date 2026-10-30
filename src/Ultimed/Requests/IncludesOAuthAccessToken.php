@@ -16,7 +16,7 @@ trait IncludesOAuthAccessToken
     {
         $headers = parent::getHeaders();
         if ($this->hasValidAccessToken()) {
-            $headers['Authorization'] = (string)$this->accessToken;
+            $headers['Authorization'] = [(string)$this->accessToken];
         }
 
         return $headers;
