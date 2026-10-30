@@ -30,9 +30,8 @@ composer install
 composer test
 ```
 
-The suite covers OAuth header formatting, request and response handling, and
-real HTTP transport. The transport tests require the cURL extension, local
-TCP sockets, and `proc_open`.
+The suite covers OAuth header formatting and request and response handling
+using Guzzle's mock handler, without external HTTP services.
 
 ## Examples
 

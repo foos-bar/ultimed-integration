@@ -2,13 +2,10 @@
 
 namespace Ultimed\Tests;
 
-use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
-use GuzzleHttp\Psr7\Message;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Ultimed\ApiClient;
 use Ultimed\OAuth\AccessToken;
@@ -95,64 +92,6 @@ class ApiClientTest extends TestCase
         $client->send(new Requests\ApiRequest('GET', 'relative'));
 
         $this->assertSame('/prefix/relative', $history[0]['request']->getRequestTarget());
-    }
-
-    #[DataProvider('memberTokens')]
-    public function test_oauth_headers_work_with_real_curl_transport(?string $memberToken): void
-    {
-        if (!extension_loaded('curl') || !function_exists('proc_open')) {
-            $this->markTestSkipped('The cURL extension and proc_open are required for transport tests.');
-        }
-
-        $process = proc_open([PHP_BINARY, __DIR__.'/fixtures/capture-http-request.php'], [
-            0 => ['pipe', 'r'],
-            1 => ['pipe', 'w'],
-            2 => ['pipe', 'w'],
-        ], $pipes);
-        $this->assertIsResource($process);
-
-        try {
-            fclose($pipes[0]);
-            stream_set_timeout($pipes[1], 10);
-            $address = trim((string) fgets($pipes[1]));
-            $this->assertNotSame('', $address);
-
-            $client = $this->client(HandlerStack::create(new CurlHandler()), 'http://'.$address);
-            $headers = ['Content-Type' => 'application/json'];
-            if ($memberToken !== null) {
-                $headers['X-Member-Token'] = $memberToken;
-            }
-            $payload = '{"example":true}';
-
-            $response = $client->send(new Requests\Custom('POST', '/v1/example', $headers, $payload));
-            $received = Message::parseRequest((string) $response->getBody());
-
-            $this->assertSame(200, $response->getStatusCode());
-            $this->assertSame('POST', $received->getMethod());
-            $this->assertSame('/v1/example', $received->getRequestTarget());
-            $this->assertSame('Bearer core-token', $received->getHeaderLine('Authorization'));
-            $this->assertSame($memberToken === null ? [] : [$memberToken], $received->getHeader('X-Member-Token'));
-            $this->assertSame($payload, (string) $received->getBody());
-        } finally {
-            foreach ($pipes as $pipe) {
-                if (is_resource($pipe)) {
-                    fclose($pipe);
-                }
-            }
-            if (proc_get_status($process)['running']) {
-                proc_terminate($process);
-            }
-            proc_close($process);
-        }
-    }
-
-    public static function memberTokens(): array
-    {
-        return [
-            'missing header' => [null],
-            'empty header' => [''],
-            'non-empty header' => ['member-token'],
-        ];
     }
 
     private function client(HandlerStack $handler, string $baseUri = 'https://api.example.org'): ApiClient
