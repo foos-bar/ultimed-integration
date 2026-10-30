@@ -30,8 +30,9 @@ composer install
 composer test
 ```
 
-The suite covers OAuth header formatting and request and response handling
-using Guzzle's mock handler, without external HTTP services.
+The suite covers OAuth header formatting, request and response handling, and
+redirect credential stripping using Guzzle's mock handler, without external
+HTTP services.
 
 ## Examples
 

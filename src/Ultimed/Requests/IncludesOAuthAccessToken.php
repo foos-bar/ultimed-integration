@@ -1,6 +1,7 @@
 <?php namespace Ultimed\Requests;
 
 use GuzzleHttp\Psr7;
+use Psr\Http\Message\MessageInterface;
 use Ultimed\OAuth\AccessToken;
 
 trait IncludesOAuthAccessToken
@@ -41,6 +42,21 @@ trait IncludesOAuthAccessToken
         }
 
         return $headers;
+    }
+
+    public function withoutHeader($name): MessageInterface
+    {
+        $request = parent::withoutHeader($name);
+
+        if (strtolower($name) === 'authorization' && $this->accessToken !== null) {
+            // The parent cannot see the virtual token header and may return this instance.
+            if ($request === $this) {
+                $request = clone $this;
+            }
+            $request->accessToken = null;
+        }
+
+        return $request;
     }
 
     protected function hasValidAccessToken()
