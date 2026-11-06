@@ -26,7 +26,7 @@ trait IncludesOAuthAccessToken
     public function hasHeader($name): bool
     {
         if (strtolower($name) === 'authorization') {
-            return $this->hasValidAccessToken();
+            return parent::hasHeader($name) || $this->hasValidAccessToken();
         }
 
         return parent::hasHeader($name);
