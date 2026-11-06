@@ -1,6 +1,7 @@
 <?php namespace Ultimed\Requests;
 
 use GuzzleHttp\Psr7;
+use Psr\Http\Message\MessageInterface;
 use Ultimed\OAuth\AccessToken;
 
 trait IncludesOAuthAccessToken
@@ -16,7 +17,7 @@ trait IncludesOAuthAccessToken
     {
         $headers = parent::getHeaders();
         if ($this->hasValidAccessToken()) {
-            $headers['Authorization'] = (string)$this->accessToken;
+            $headers['Authorization'] = [(string)$this->accessToken];
         }
 
         return $headers;
@@ -25,7 +26,7 @@ trait IncludesOAuthAccessToken
     public function hasHeader($name): bool
     {
         if (strtolower($name) === 'authorization') {
-            return $this->hasValidAccessToken();
+            return parent::hasHeader($name) || $this->hasValidAccessToken();
         }
 
         return parent::hasHeader($name);
@@ -41,6 +42,21 @@ trait IncludesOAuthAccessToken
         }
 
         return $headers;
+    }
+
+    public function withoutHeader($name): MessageInterface
+    {
+        $request = parent::withoutHeader($name);
+
+        if (strtolower($name) === 'authorization' && $this->accessToken !== null) {
+            // The parent cannot see the virtual token header and may return this instance.
+            if ($request === $this) {
+                $request = clone $this;
+            }
+            $request->accessToken = null;
+        }
+
+        return $request;
     }
 
     protected function hasValidAccessToken()
